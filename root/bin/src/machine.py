@@ -1,7 +1,7 @@
 import datetime
 import heapq
 
-from bin.constants import ItemNotPresent, NoSlots, IngredientNotPresent, IngredientQuantityInsufficient
+from bin.constants import Constants
 from bin.src.beverage import Beverage
 from bin.src.ingredient import Ingredient
 from bin.src.ingredient import IngredientQuantity
@@ -37,7 +37,7 @@ class Machine:
         try:
             # Check if requested beverage is available
             if beverage is None:
-                raise(Exception(ItemNotPresent))
+                raise(Exception(Constants.ItemNotPresent))
             else:
                 now = datetime.datetime.now()
                 # cur_time = datetime.timestamp(now)
@@ -52,7 +52,7 @@ class Machine:
                     else:
                         raise(Exception(check_ingredient[1]))
                 else:
-                    raise(Exception(NoSlots))
+                    raise(Exception(Constants.NoSlots))
 
         except Exception as exception_info:
             beverage = exception_info.args[0]
@@ -96,14 +96,14 @@ class Machine:
             # get item from inventory list if available
             inventory_item = self.inventory.get(content_name, None)
             if inventory_item is None:
-                return [False, IngredientNotPresent]
+                return [False, Constants.IngredientNotPresent]
             # Get quantity of this content of beverage to be prepared
             content_quantity = content.get_quantity()
             # Get quantity of this content available in inventory
             inventory_quantity = inventory_item.get_quantity()
             # Check if we quantity is sufficient
             if inventory_quantity < content_quantity:
-                return [False, IngredientQuantityInsufficient]
+                return [False, Constants.IngredientQuantityInsufficient]
         return [True, ""]
 
     def use_ingredients(self, beverage):

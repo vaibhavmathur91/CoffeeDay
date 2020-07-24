@@ -1,4 +1,4 @@
-from bin.constants import ItemNotPresent, IngredientNotPresent, IngredientQuantityInsufficient, NoSlots
+from bin.constants import Constants
 from bin.src.machine import Machine
 from bin.src.beverage import Beverage
 from bin.src.ingredient import Ingredient
@@ -97,15 +97,15 @@ class MachineTest(TestCase):
 
         # Beverage requested is not available (not in beverages list of machine)
         coffee = machine.prepare_beverage("coffee")
-        self.assertEqual(ItemNotPresent, coffee)
+        self.assertEqual(Constants.ItemNotPresent, coffee)
 
         # One of ingredient in requested Beverage is not present
         green_tea = machine.prepare_beverage("green_tea")
-        self.assertEqual(IngredientNotPresent, green_tea)
+        self.assertEqual(Constants.IngredientNotPresent, green_tea)
 
         # One of ingredient quantity in requested Beverage is not sufficient
         lemon_water = machine.prepare_beverage("lemon_water")
-        self.assertEqual(IngredientQuantityInsufficient, lemon_water)
+        self.assertEqual(Constants.IngredientQuantityInsufficient, lemon_water)
 
     def test2(self):
         # machine with 4 slots
@@ -125,4 +125,4 @@ class MachineTest(TestCase):
 
         # All slots are full
         pepsi = machine.prepare_beverage("cold_pepsi")
-        self.assertEqual(NoSlots, pepsi)
+        self.assertEqual(Constants.NoSlots, pepsi)
